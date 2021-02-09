@@ -1,0 +1,190 @@
+<div class="fixed-action-btn">
+  <a href="/sq/requests"class="btn-floating btn-large red">
+    <i class="large material-icons">mode_edit</i>
+  </a>
+</div>
+<div class="row">
+    <div class="col s12 m6">
+      <div class="card white darken-1">
+        <div class="card-content black-text">
+          <span class="card-title">Add Items to MENU</span>
+          <form>
+              <div class="row">
+                  <div class="col">
+          <p>
+            <label>
+              <input name="group1" type="radio" checked type2="fastfood" />
+              <span>fastfood</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="group1" type="radio" type2="combos" />
+              <span>combos</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" name="group1" type="radio" type2="drinks" />
+              <span>drinks</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input name="group1" type="radio" type2="snacks"/>
+              <span>snacks</span>
+            </label>
+          </p>
+        </div>
+        <div class="col">
+                <div class="row">
+                        <div class="input-field col s6">
+                          <input name="name" placeholder="item name" id="first_name" type="text" class="validate">
+                          <label for="first_name">Item Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                          <input name="price" id="last_name" type="text" class="validate">
+                          <label for="last_name">Price</label>
+                        </div>
+                      </div>
+                      <button id="send" class="btn waves-effect waves-light" type="button" name="action">Submit
+                        <i class="material-icons right">send</i>
+                      </button>
+        </div>
+        </div>            
+        </form>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m6">
+    
+  <div class="card blue">
+    <div class="card-content">
+    <h5>Update Item Availability</h5>
+    </div>
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#combosUpdt">Combos</a></li>
+        <li class="tab"><a href="#fastfoodUpdt">FastFood</a></li>
+        <li class="tab"><a href="#drinksUpdt">Drinks</a></li>
+        <li class="tab"><a href="#snacksUpdt">Snacks</a></li>
+      </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="combosUpdt">
+         <%for(i=0;i<combos.length;i++){%>
+            <div class="row">
+              <div class="col">
+          <p><%-combos[i].item%></p>
+              </div>
+              <div class="col">
+           <div class="switch">
+              <label>
+                Not Available
+                <input id="<%-combos[i]._id%>" type="checkbox" <%if(combos[i].isAvail){%>
+                  checked
+                  <%}%>
+                  >
+                <span class="lever"></span>
+                Available
+              </label>
+            </div>
+              </div>
+          </div>
+           <%}%>
+      </div>
+      <div id="fastfoodUpdt">
+          <%for(i=0;i<fastfood.length;i++){%>
+              <div class="row">
+                <div class="col">
+            <p><%-fastfood[i].item%></p>
+                </div>
+                <div class="col">
+             <div class="switch">
+                <label>
+                  Not Available
+                  <input id="<%-fastfood[i]._id%>" type="checkbox" <%if(fastfood[i].isAvail){%>
+                    checked
+                    <%}%>
+                    >
+                  <span class="lever"></span>
+                  Available
+                </label>
+              </div>
+                </div>
+            </div>
+             <%}%>
+      </div>
+      <div id="drinksUpdt">
+          <%for(i=0;i<drinks.length;i++){%>
+              <div class="row">
+                <div class="col">
+            <p><%-drinks[i].item%></p>
+                </div>
+                <div class="col">
+             <div class="switch">
+                <label>
+                  Not Available
+                  <input id="<%-drinks[i]._id%>" type="checkbox" <%if(drinks[i].isAvail){%>
+                    checked
+                    <%}%>
+                    >
+                  <span class="lever"></span>
+                  Available
+                </label>
+              </div>
+                </div>
+            </div>
+             <%}%>
+      </div>
+      <div id="snacksUpdt">
+          <%for(i=0;i<snacks.length;i++){%>
+              <div class="row">
+                <div class="col">
+            <p><%-snacks[i].item%></p>
+                </div>
+                <div class="col">
+             <div class="switch">
+                <label>
+                  Not Available
+                  <input id="<%-snacks[i]._id%>" type="checkbox" <%if(snacks[i].isAvail){%>
+                    checked
+                    <%}%>
+                    >
+                  <span class="lever"></span>
+                  Available
+                </label>
+              </div>
+                </div>
+            </div>
+             <%}%>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+  <script>
+      $(()=>{
+        $('.tabs').tabs();
+        $("input[type='checkbox']").click((e)=>{
+          $.post("/updateAvail",
+          {
+            id:e.target.id
+          }
+          ,(status)=>{})
+        })
+      })
+       $("#send").click(()=>{
+         $.post("/addItem",{
+           name:$("#first_name").val(),
+           price:$("#last_name").val(),
+           type:$("input[name='group1']:checked").attr("type2")
+         },(data)=>{
+              if(data=="save"){
+                notie.alert({type:"success",text:"Item saved",position:"bottom"})
+              }
+         })
+       })
+  </script>
+
+  <a class=" waves-effect waves-light blue btn" href="/sq/chats"><i class="material-icons">chat</i></a>

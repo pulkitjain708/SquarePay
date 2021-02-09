@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" href="/images/title.png" type="image/png" sizes="16x16">
+    <title>SquareOne</title>
+    <script src="/libs/jquery.js"></script>
+    <script src="/libs/materialize.js"></script>
+    <link rel="stylesheet" href="/libs/materialize.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="/libs/notie.css">
+      <script src="/libs/notie.js"></script>
+      <style>
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .column  {
+    width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column  {
+    width: 100%;
+  }
+}
+          
+      </style>
+  </head>
+  <body>
+      <script>
+         window.document.cart=[]
+         </script>
+      <nav>
+          <div class="nav-wrapper navbar-fixed" style="background-color:#192A56">
+            <a  class="brand-logo center"><img src="/images/sq.jpg"  class="circle z-depth-5" style="height:25%;width:25%"></a>
+            <ul class="right">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+  
+    <%- body %>
+
+     <footer class="page-footer" style="background-color:#192A56">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">SqDb</h5>
+              <p class="grey-text text-lighten-4">The replicate service food provider</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Key Contributors</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="#!">Priyansh Kalra</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Pulkit Jain</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Rohan Shrivastav</a></li>
+                <li><a class="grey-text text-lighten-3" href="#!">Shivang Bharti</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2019 Copyright SqDb
+          <a class="grey-text text-lighten-4 right" href="#!"></a>
+          </div>
+        </div>
+      </footer> 
+  </body>
+</html>

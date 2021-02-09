@@ -1,0 +1,28 @@
+
+<ul class="collapsible popout">
+        <li>
+          <div class="collapsible-header" id="3"><i class="material-icons">money</i>SquareOne Card</div>
+          <div class="collapsible-body"><span>
+            <div class="row">
+              <%if(data.applied=="0"){%>
+                <%-include("cardReg")%>
+                <%} else {%>
+                <%-include('sq')%>
+                <%}%>
+    </div>
+          </span></div>
+        </li>
+        <li>
+          <div class="collapsible-header" id="4"><i class="material-icons">credit_card</i>Payment History</div>
+          <div class="collapsible-body"><span>Functionality not implemented Yet !! Nor in coming time</span></div>
+        </li>
+      </ul>
+      
+<script>
+  $("#3").click(()=>{
+    parent.location.hash="payment_SquareOne"
+  })
+  $("#4").click(()=>{
+    parent.location.hash="payment_History"
+  })
+</script>

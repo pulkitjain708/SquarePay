@@ -1,0 +1,46 @@
+<%-include('tabs/sidenav')%>
+
+<div class="row">
+        <div class="col s12 m12">
+          <div class="card-panel blue">
+            <span class="white-text">
+                   <h4>
+                       Your Queries solved
+                   </h4>
+                  <%for(i=0;i<faqs.length;i++){%>
+                        <div class="row">
+                               <!-- <div class="col s12 m12">
+                                  <div class="card-panel blue"> -->
+                                    <span class="black-text">
+                                        <div class="row">
+                                                <img style="height:25px;width:25px" class="circle" src="<%-data.pic%>"></a>
+                                            <span class="yellow">
+                                               You : <%-faqs[i].chat.question%> 
+                                            </span>
+                                        </div>
+                                        <div class="row">
+                                                <span class="badge yellow">
+                                                    <%if(faqs[i].chat.answer==""){%>
+                                                        Admin : Answered not Yet 
+                                                        <%}else{%>
+                                                    Admin : <%-faqs[i].chat.answer%> 
+                                                    <%}%>
+                                                </span>
+                                        </div>
+                                    </span>
+                                  <!-- </div>
+                                </div> -->
+                              </div>  
+                    <%}%>
+            </span>
+          </div>
+        </div>
+      </div>
+
+
+      <script>
+          $(()=>{
+            $('.fixed-action-btn').floatingActionButton()
+            $('.sidenav').sidenav()
+          })
+      </script>

@@ -1,0 +1,66 @@
+<%-include('tabs/sidenav')%>
+
+    <div class="col s12 m12" >
+      <ul class="tabs" style="background-color:#192A56">
+        <li class="tab col s3"><a href="#test1">Accepted Orders</a></li>
+        <li class="tab col s3"><a class="active" href="#test2">In Waiting Orders</a></li>
+      </ul>
+    </div>
+    <div id="test1">
+        <div class="row">
+        <%for(i=0;i<orders_prev.length;i++){%>
+            <%if(orders_prev[i].approved){%>
+                <div class="column">
+                        <div class="card-panel teal">
+                          <span class="white-text">
+                                <p>Order Id: <%-orders_prev[i].orderId%> </p>      
+                                <p>Date: <%-orders_prev[i].date%> </p>
+                                <p>Total Amount: <%-orders_prev[i].total%> </p>  
+                                <p>Items</p>
+                                <ol>
+                                    <%for(j=0;j<orders_prev[i].cart.length;j++){%>
+                                        <li><%-orders_prev[i].cart[j].name%> x <%-orders_prev[i].cart[j].qty%></li>
+                                        <%}%>
+                                </ol>          
+                        </span>
+                        </div>
+                      </div>
+                      <%}%>
+                      <%}%>
+    </div>
+</div>
+    <div id="test2" class="col s12">
+        <div class="row">
+            <%for(i=0;i<orders_prev.length;i++){%>
+                    <%if(!orders_prev[i].approved){%>
+                        <div class="column" id='<%-orders_prev[i].orderId%>'>
+                                <div class="card-panel teal">
+                                  <span class="white-text">
+                                        <p>Order Id: <%-orders_prev[i].orderId%> </p>      
+                                        <p>Date: <%-orders_prev[i].date%> </p>
+                                        <p>Total Amount: <%-orders_prev[i].total%> </p>  
+                                        <p>Items</p>
+                                        <ol>
+                                            <%for(j=0;j<orders_prev[i].cart.length;j++){%>
+                                                <li><%-orders_prev[i].cart[j].name%> x <%-orders_prev[i].cart[j].qty%></li>
+                                                <%}%>
+                                        </ol>  
+                                        <a onclick="refundreq('<%-orders_prev[i].orderId%>','<%-orders_prev[i].total%>','<%-orders_prev[i].user%>','<%-data.email%>')" class="waves-effect waves-light btn">Request Refund and Delete</a>        
+                                </span>
+                                </div>
+                              </div>
+                              <%}%>
+                              <%}%>
+                            </div>
+                            </div>
+
+<script>
+    $(()=>{
+      $('.sidenav').sidenav()
+      $('.tabs').tabs();
+  })
+function refundreq(a,b,c,d){
+    $("#"+a).hide()
+    $.post("/requestrefund",{oid:a,amt:b,uid:c,email:d},(data)=>{})
+}
+</script>

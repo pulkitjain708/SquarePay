@@ -1,0 +1,63 @@
+<h5>Show Orders</h5> 
+<div class="row">
+<div class="col"><input type="text" id="d" placeholder="Date" class="datepicker"> </div>
+<div class="col"><input type="text" id="t" placeholder="Time" class="timepicker" disabled></div>
+<div class="col"><a id="b" class="waves-effect waves-light btn">GET REQUESTS</a></div>
+</div>
+<div class="row" id="appd">
+
+</div>
+
+
+<script>
+        function req(id,mail,name){
+            $("#"+id).hide()
+            M.toast({html:id+" accepted"})
+            $.post("/updateItem",{id:id,mail:mail,name:name},(data)=>{
+                console.log(data)
+            })
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var instances = M.Datepicker.init(elems,{
+                format:'yyyy-m-d'
+            });
+          });
+          
+ // document.addEventListener('DOMContentLoaded', function() {
+ //   var elems2= document.querySelectorAll('.timepicker');
+ //   var instances = M.Timepicker.init(elems2,{
+ //       twelveHour:false
+ //   });
+ // });
+$(()=>{
+   
+    $("#b").click(()=>{
+        $("#appd").html("")
+        d=$("#d").val()
+        $.post("/getItems",{d},(data)=>{
+           console.log(data)
+           for(i=0;i<data.length;i++){
+               items=data[i].cart
+               itemsarr=[]
+               for(j=0;j<items.length;j++){
+                   itemsarr.push(items[j].name+" x "+items[j].qty)
+               }
+                  $("#appd").append(`
+                  <div id="${data[i].orderId}" class="card column">
+                        <div class="card-panel red">
+                                <span class="white-text">                     
+                                <p>Order ID: ${data[i].orderId}</p> 
+                                <p>User: ${data[i].user.username}</p>
+                                <p>Email: ${data[i].user.email}</p>
+                                <p>Items : ${[...itemsarr]}</p> 
+                                <button onclick="req(${data[i].orderId},'${data[i].user.email}','${data[i].user.username}')"class="waves-effect waves-light btn"><i class="material-icons left">done_all</i>Accept and Cater</button> 
+                            </span>
+                              </div>
+                  </div>
+                  `)
+           }
+        })
+    })
+})
+    </script>

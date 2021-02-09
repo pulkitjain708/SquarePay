@@ -1,0 +1,57 @@
+
+<div class="card column" style="width:300px;height:350px">
+    <div class="card-image" >
+      <img src="<%-combos[i].imgpath%>">
+      <span id="span<%-combos[i]._id%>" class="card-title"><%-combos[i].item%></span>
+    </div>
+    <div class="card-content">
+        <a id="push<%-combos[i]._id%>" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add_shopping_cart</i></a>
+     <div class="row">
+      Price  <p id="price<%-combos[i]._id%>"><%-combos[i].price%></p>
+        <a id="plus<%-combos[i]._id%>" class="waves-effect waves-light btn-small"><i class="material-icons">exposure_plus_1</i></a>
+        <input id="qty<%-combos[i]._id%>" style="width:30px" disabled type="text">
+        <a id="minus<%-combos[i]._id%>" class="waves-effect waves-light btn-small"><i class="material-icons">exposure_neg_1</i></a>
+        <p id="amt<%-combos[i]._id%>">Net Amt : 0</p>
+      </form>
+     </div>
+    </div>
+    <script>
+       $("#qty<%-combos[i]._id%>").val("0")
+       $("#plus<%-combos[i]._id%>").click(()=>{
+         val=Number($("#qty<%-combos[i]._id%>").val())
+         val++
+           $("#amt<%-combos[i]._id%>").text(`Net Amt : ${val*Number($("#price<%-combos[i]._id%>").text())}`)
+         $("#qty<%-combos[i]._id%>").val(val)
+       })
+       $("#minus<%-combos[i]._id%>").click(()=>{
+         val=Number($("#qty<%-combos[i]._id%>").val())
+         if(val<=0)
+         return
+         val--
+         $("#amt<%-combos[i]._id%>").text(`Net Amt : ${val*Number($("#price<%-combos[i]._id%>").text())}`)
+         $("#qty<%-combos[i]._id%>").val(val)
+       })
+
+       $("#push<%-combos[i]._id%>").click(()=>{
+         item={}
+         if($("#qty<%-combos[i]._id%>").val()==0){
+           notie.alert({position:"bottom",type:"warning",time:5,text:"Atleast have a Item"})
+           return 
+         }
+         nameofitem=$("#span<%-combos[i]._id%>").text()
+       check=document.cart.find(item=>item.name===nameofitem)
+       if(check){
+        notie.alert({position:"bottom",type:"warning",time:5,text:"Already been added in cart"})
+         return
+       }
+         item._id="<%-combos[i]._id%>"
+         item.price="<%-combos[i].price%>"
+        item.qty=$("#qty<%-combos[i]._id%>").val()
+         total=$("#amt<%-combos[i]._id%>").text().split(":")[1]
+         item.total=total
+         item.name="<%-combos[i].item%>"
+        document.cart.push(item)
+        notie.alert({position:"bottom",type:"success",time:5,text:"Added Successfully"})
+       })
+      </script>
+  </div>

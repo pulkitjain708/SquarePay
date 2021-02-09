@@ -1,0 +1,24 @@
+
+  <div class="row">
+        <div class="col s12 m5">
+          <div class="card-panel teal">
+            <span class="white-text">
+                    Get Your New Card Now
+                    <a class="waves-effect waves-light btn-large" id="getCard"><i class="material-icons right">send</i>GET IT</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+          $("#getCard").click(()=>{
+              $.post("/getCard",
+              {id:"<%-data._id%>"},
+              (data)=>{
+                  notie.alert({text:data,position:"bottom",type:"success",time:3})
+                  setTimeout(()=>{
+                      window.location.href="/dashboard"
+                  },3000)
+              })
+          })
+      </script>

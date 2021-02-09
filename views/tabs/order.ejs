@@ -1,0 +1,57 @@
+<!-- <script>
+ document.cart=[]
+</script> -->
+<ul class="collapsible popout">
+        <li>
+          <div class="collapsible-header" id="5"><i class="material-icons">cake</i>Snacks</div>
+          <div class="collapsible-body"><span>
+    <div class="row">
+      <%for(i=0;i<snacks.length;i++){%>
+          <%if(snacks[i].isAvail==false)continue%>
+        <%-include("snacks")%>
+        <%}%>
+    </div>
+          </span></div>
+        </li>
+        <li>
+          <div class="collapsible-header" id="6"><i class="material-icons">local_drink</i>Drinks</div>
+          <div class="collapsible-body"><span><div class="row">
+            <%for(i=0;i<drinks.length;i++){%>
+                <%if(drinks[i].isAvail==false)continue%>
+              <%-include("drinks")%>
+              <%}%>
+          </div></span></div>
+        </li>
+        <li>
+          <div class="collapsible-header" id="7"><i class="material-icons">fastfood</i>Fast Food</div>
+          <div class="collapsible-body"><span><div class="row">
+            <%for(i=0;i<fastfood.length;i++){%>
+                <%if(fastfood[i].isAvail==false)continue%>
+              <%-include("fastfood")%>
+              <%}%>
+          </div></span></div>
+        </li>
+        <li>
+            <div class="collapsible-header" id="8"><i class="material-icons">local_dining</i>Combo's</div>
+            <div class="collapsible-body"><span><div class="row">
+              <%for(i=0;i<combos.length;i++){%>
+                  <%if(combos[i].isAvail==false)continue%>
+                <%-include("combos")%>
+                <%}%>
+            </div></span></div>
+              </li>
+      </ul>
+   <script>
+    $("#5").click(()=>{
+      parent.location.hash="order_snacks"
+    })
+    $("#6").click(()=>{
+      parent.location.hash="order_drinks"
+    })
+    $("#7").click(()=>{
+      parent.location.hash="order_fastfood"
+    })
+    $("#8").click(()=>{
+      parent.location.hash="order_combos"
+    })
+   </script>

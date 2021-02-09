@@ -1,0 +1,81 @@
+
+<div class="row">
+    <div class="col s12 m12">
+      <div class="card-panel blue">
+        <span class="white-text">       
+            <h4>Reply to Queries here</h4>
+            <hr>
+            <div id="chats">
+
+            </div>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="fixed-action-btn">
+        <a onclick="perform()" class="btn-floating btn-large red">
+          <i class="large material-icons">refresh</i>
+        </a>
+      </div>
+
+
+<script>
+function submit(id){
+    answer=$("#"+id).val()
+    str=`
+    <span class="badge yellow">
+            Admin : ${answer}
+         </span>
+    `
+   $("#ans"+id).html(str)
+   $.post("/submitAnswer",{id:id,answer:answer},(data)=>{
+       if(data){
+        M.toast({html:"response submitted"})
+       }
+   })
+}
+
+function perform(){
+    $.post("/fetch_chats",{},(data)=>{
+        console.log(data)
+        $("#chats").html("")
+                    for(i=0;i<data.length;i++){
+                        $("#chats").append(`
+                        <div class="row">
+                            <div class="col s12 m12">
+                              <div class="card-panel light-blue lighten-1">
+                                <span class="black-text">
+                                    <div class="row">
+                                            <img style="heigth:25px;width:25px" class="circle" src="${data[i].user.pic}"></a>
+                                        <span class="yellow">
+                                           ${data[i].user.username} : ${data[i]["chat"].question}
+                                        </span>
+                                    </div>
+                                    <div class="row" id="ans${data[i]._id}"></div>
+                                    <div class="row">
+                                        <div class="col m10 s10">
+                                    <input placeholder="Answer to Query" id='${data[i]._id}' type="text" class="validate">
+                                        </div>
+                                        <div class="col s2 m2">
+                                    <button onclick="submit('${data[i]._id}')" class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                            <i class="material-icons right">send</i>
+                                          </button>
+                                        </div>
+                                    </div>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        `)
+                    }
+                })
+}
+
+
+
+    $(()=>{
+         perform()
+    })
+</script>

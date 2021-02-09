@@ -1,0 +1,56 @@
+      <div class="card column" style="width:300px;height:350px">
+        <div class="card-image" >
+          <img src="<%-snacks[i].imgpath%>">
+          <span id="span<%-snacks[i]._id%>" class="card-title"><%-snacks[i].item%></span>
+        </div>
+        <div class="card-content">
+            <a id="push<%-snacks[i]._id%>" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add_shopping_cart</i></a>
+         <div class="row">
+          Price  <p id="price<%-snacks[i]._id%>"><%-snacks[i].price%></p>
+            <a id="plus<%-snacks[i]._id%>" class="waves-effect waves-light btn-small"><i class="material-icons">exposure_plus_1</i></a>
+            <input id="qty<%-snacks[i]._id%>" style="width:30px" disabled type="text">
+            <a id="minus<%-snacks[i]._id%>" class="waves-effect waves-light btn-small"><i class="material-icons">exposure_neg_1</i></a>
+            <p id="amt<%-snacks[i]._id%>">Net Amt : 0</p>
+          </form>
+         </div>
+        </div>
+        <script>
+           $("#qty<%-snacks[i]._id%>").val("0")
+           $("#plus<%-snacks[i]._id%>").click(()=>{
+             val=Number($("#qty<%-snacks[i]._id%>").val())
+             val++
+               $("#amt<%-snacks[i]._id%>").text(`Net Amt : ${val*Number($("#price<%-snacks[i]._id%>").text())}`)
+             $("#qty<%-snacks[i]._id%>").val(val)
+           })
+           $("#minus<%-snacks[i]._id%>").click(()=>{
+             val=Number($("#qty<%-snacks[i]._id%>").val())
+             if(val<=0)
+             return
+             val--
+             $("#amt<%-snacks[i]._id%>").text(`Net Amt : ${val*Number($("#price<%-snacks[i]._id%>").text())}`)
+             $("#qty<%-snacks[i]._id%>").val(val)
+           })
+
+           $("#push<%-snacks[i]._id%>").click(()=>{
+             item={}
+             if($("#qty<%-snacks[i]._id%>").val()==0){
+               notie.alert({position:"bottom",type:"warning",time:5,text:"Atleast have a Item"})
+               return 
+             }
+             nameofitem=$("#span<%-snacks[i]._id%>").text()
+           check=document.cart.find(item=>item.name===nameofitem)
+           if(check){
+            notie.alert({position:"bottom",type:"warning",time:5,text:"Already been added in cart"})
+             return
+           }
+             item._id="<%-snacks[i]._id%>"
+            item.qty=$("#qty<%-snacks[i]._id%>").val()
+             total=$("#amt<%-snacks[i]._id%>").text().split(":")[1]
+             item.name="<%-snacks[i].item%>"
+             item.price="<%-snacks[i].price%>"
+             item.total=total
+            document.cart.push(item)
+            notie.alert({position:"bottom",type:"success",time:5,text:"Added Successfully"})
+           })
+          </script>
+      </div>

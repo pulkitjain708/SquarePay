@@ -1,0 +1,59 @@
+<div class="col">
+        <div class="card-panel " style="width:350px;height:200px">
+          <span class="black-text">
+          <center>
+              <img src="/sq.png" >           
+        </center>
+              <p class="right-align grey-text"><%-data.sqc.id%></p>      
+        </span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-panel" style="height:200px">
+                 <div class="row">
+                   <div class="col" style="width:400px">
+                        <div class="row">
+                          <div class="col">Name on Card</div>
+                          <div class="col"><%-data.username%></div>
+                        </div>
+                        <div class="row">
+                          <div class="col">Registered Number</div>
+                          <div class="col"><%-data.phone%></div>
+                        </div>
+                        <div class="row">
+                          <div class="col">ID</div>
+                          <div class="col"><%-data.sqc.id%></div>
+                        </div>
+                        <div class="row">
+                          <div class="col">Balance ₹</div>
+                          <div class="col"><%-data.sqc.balance%></div>
+                        </div>
+                   </div>
+                   <div class="col">
+                      <form action="/successPayment" method="POST">
+                        <script
+                            src="https://checkout.razorpay.com/v1/checkout.js"
+                            data-key="rzp_test_OvsPSJbAREoiiv"
+                              data-amount="100"
+                            data-currency="INR"
+                            data-order_id="<%-order_id%>"
+                            data-buttontext="Recharge for SquareOne"
+                            data-name="SquareOne"
+                            data-description="Pay in order to Recharge your Card"
+                            data-image=""
+                            data-prefill.name="<%-data.username%>"
+                            data-prefill.email="<%-data.email%>"
+                            data-prefill.contact="<%-data.phone%>"
+                            data-theme.color="#192A56"
+                        ></script>
+                        <div class="input-field col s6">
+                            <input placeholder="Enter Amount" id="amt" type="text" name="amount" class="validate">
+                          </div>
+                          <input type="text" id="userID" name="personId" hidden=true value="<%-data._id%>">
+                          <input type="text" value="<%-order_id%>" name="orderId" hidden="true">
+                        </form>
+                   </div>
+                 </div>             
+        </div>
+      </div>
+    
